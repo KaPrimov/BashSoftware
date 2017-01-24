@@ -1,5 +1,7 @@
 package com.KaPrim;
 
+import java.util.List;
+
 public class OutputWriter {
 
     public static void writeMessage(String message) {
@@ -7,14 +9,19 @@ public class OutputWriter {
     }
 
     public static void writeMessageOnNewLine(String message) {
-
+        System.out.println(message);
     }
 
     public static void writeEmptyLine() {
-
+        System.out.println();
     }
 
     public static void displayException(String message) {
 
+    }
+
+    public static void printStudent(String name, List<Integer> marks) {
+        String output = String .format("%s - %s", name, marks.toString());
+        OutputWriter.writeMessageOnNewLine(output);
     }
 }

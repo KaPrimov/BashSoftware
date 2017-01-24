@@ -6,7 +6,8 @@ import java.util.LinkedList;
 public class Main {
 
     public static void main(String[] args) {
-
+        StudentsRepository.initializeData();
+        StudentsRepository.getStudentsByCourse("Unity");
     }
     public static void traverseDirectory(String path) {
         LinkedList<File> subFolders = new LinkedList<>();
