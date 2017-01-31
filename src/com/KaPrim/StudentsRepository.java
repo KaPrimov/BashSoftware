@@ -39,9 +39,10 @@ public class StudentsRepository {
             studentsByCourse.get(course).get(student).add(mark);
             input = scanner.nextLine();
 
-            isDataInitialized = true;
-            OutputWriter.writeMessageOnNewLine("Data read.");
+
         }
+        isDataInitialized = true;
+        OutputWriter.writeMessageOnNewLine("Data read.");
     }
 
     private static boolean isQueryForCoursePossible(String courseName) {
