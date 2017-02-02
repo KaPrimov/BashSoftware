@@ -6,15 +6,7 @@ import java.util.LinkedList;
 public class Main {
 
     public static void main(String[] args) {
-//        String test1Path = "E:\\Programming\\JavaAdv-Tasks\\BashSoft\\src\\resources\\test1.txt";
-//        String test2Path = "E:\\Programming\\JavaAdv-Tasks\\BashSoft\\src\\resources\\test3.txt";
-//        Tester.compareContent(test1Path, test2Path);
-//        System.out.println(SessionData.currentPath);
-//        IOManager.changeCurrentRelativePath("..");
-//        IOManager.changeCurrentRelativePath("..");
-//        IOManager.changeCurrentRelativePath("..");
-//        IOManager.changeCurrentRelativePath("Movies");
-//        System.out.println(SessionData.currentPath);
+        InputReader.readCommands();
     }
     public static void traverseDirectory(int depth) {
         LinkedList<File> subFolders = new LinkedList<>();

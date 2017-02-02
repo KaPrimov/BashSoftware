@@ -26,7 +26,7 @@ public class IOManager {
         }
     }
 
-    private static void changeCurrentDirAbsolute(String absolutePath) {
+    public static void changeCurrentDirAbsolute(String absolutePath) {
         File file = new File(absolutePath);
         if (!file.exists()) {
             OutputWriter.displayException(ExseptionMessages.INVALID_PATH);
@@ -34,4 +34,5 @@ public class IOManager {
         }
         SessionData.currentPath = absolutePath;
     }
+
 }
