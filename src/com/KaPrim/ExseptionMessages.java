@@ -6,4 +6,5 @@ public class ExseptionMessages {
     public static final String NON_EXISTING_COURSE = "This course does not exist.";
     public static final String NON_EXISTING_STUDENT = "This student does not exist.";
     public static final String INVALID_PATH = "The given path is invalid.";
+    public static final String INVALID_FILTER = "Invalid Filter.";
 }

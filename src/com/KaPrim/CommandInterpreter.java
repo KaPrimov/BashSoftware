@@ -32,8 +32,10 @@ public class CommandInterpreter {
                 tryReadDBFromFile(input, data);
                 break;
             case "filter":
+                tryPrintFilteredStudents(input, data);
                 break;
             case "order":
+                tryPrintOrderedStudents(input, data);
                 break;
             case "download":
                 break;
@@ -172,5 +174,43 @@ public class CommandInterpreter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void tryPrintFilteredStudents(String input, String[] data) {
+        if (data.length != 3 && data.length != 4) {
+            displayInvalidCommandMessage(input);
+            return;
+        }
+
+        String course = data[1];
+        String filter = data[2];
+
+        if (data.length == 3) {
+            StudentsRepository.printFilteredStudents(course, filter, null);
+            return;
+        }
+
+        Integer numberOfStudents = Integer.valueOf(data[3]);
+        StudentsRepository.printFilteredStudents(course, filter, numberOfStudents);
+
+    }
+
+    private static void tryPrintOrderedStudents(String input, String[] data) {
+        if (data.length != 3 && data.length != 4) {
+            displayInvalidCommandMessage(input);
+            return;
+        }
+
+        String course = data[1];
+        String filter = data[2];
+
+        if (data.length == 3) {
+            StudentsRepository.printOrderedStudents(course, filter, null);
+            return;
+        }
+
+        Integer numberOfStudents = Integer.valueOf(data[3]);
+        StudentsRepository.printOrderedStudents(course, filter, numberOfStudents);
+
     }
 }
