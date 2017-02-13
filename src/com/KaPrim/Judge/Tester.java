@@ -1,4 +1,6 @@
-package com.KaPrim;
+package com.KaPrim.Judge;
+
+import com.KaPrim.IO.OutputWriter;
 
 import java.io.*;
 import java.util.ArrayList;

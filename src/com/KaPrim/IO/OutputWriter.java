@@ -1,4 +1,4 @@
-package com.KaPrim;
+package com.KaPrim.IO;
 
 import java.util.List;
 

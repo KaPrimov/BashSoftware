@@ -1,4 +1,4 @@
-package com.KaPrim;
+package com.KaPrim.StaticData;
 
 public class ExseptionMessages {
     public static final String DATA_ALREADY_INITIALIZED = "Data is already initialized.";

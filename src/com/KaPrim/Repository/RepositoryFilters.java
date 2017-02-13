@@ -1,4 +1,7 @@
-package com.KaPrim;
+package com.KaPrim.Repository;
+
+import com.KaPrim.StaticData.ExseptionMessages;
+import com.KaPrim.IO.OutputWriter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +31,14 @@ public class RepositoryFilters {
                 break;
             }
             List<Integer> studentsMarks = courseData.get(student);
-            Double averageMark = getStudentAverageGrade(studentsMarks);
+            Double averageMark = studentsMarks
+                    .stream()
+                    .mapToInt(Integer::valueOf)
+                    .average()
+                    .getAsDouble();
+
+            Double percentageOfFulfilment = averageMark / 100;
+            Double mark = percentageOfFulfilment * 4 + 2;
             if (filter.test(averageMark)) {
                 OutputWriter.printStudent(student, studentsMarks);
                 studentsCount++;
@@ -47,16 +57,5 @@ public class RepositoryFilters {
             default:
                 return null;
         }
-    }
-    private static Double getStudentAverageGrade(List<Integer> grades) {
-        double totalScore = 0.0;
-
-        for (Integer grade : grades) {
-            totalScore+=grade;
-        }
-
-        double percentage = totalScore / (grades.size() * 100.0);
-        return (percentage * 4) + 2;
-
     }
 }

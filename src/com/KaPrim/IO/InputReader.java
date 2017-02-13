@@ -1,4 +1,7 @@
-package com.KaPrim;
+package com.KaPrim.IO;
+
+import com.KaPrim.CommandInterpreter;
+import com.KaPrim.StaticData.SessionData;
 
 import java.util.Scanner;
 
