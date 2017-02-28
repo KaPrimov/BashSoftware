@@ -1,7 +1,9 @@
 package com.KaPrim.io;
 
-import com.KaPrim.staticData.SessionData;
+import com.KaPrim.exceptions.InvalidFileNameException;
+import com.KaPrim.exceptions.InvalidPathException;
 import com.KaPrim.staticData.ExceptionMessages;
+import com.KaPrim.staticData.SessionData;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,8 +54,7 @@ public class IOManager {
         File file = new File(path);
         boolean wasDirMade = file.mkdir();
         if (!wasDirMade) {
-            throw new IllegalArgumentException(
-                    ExceptionMessages.FORBIDDEN_SYMBOLS_CONTAINED_IN_NAME);
+            throw new InvalidFileNameException();
         }
     }
 
@@ -66,7 +67,7 @@ public class IOManager {
                 String newPath = currentPath.substring(0, indexOfLastSlash);
                 SessionData.currentPath = newPath;
             } catch (StringIndexOutOfBoundsException sioobe) {
-                throw new IllegalArgumentException(ExceptionMessages.INVALID_DESTINATION);
+                throw new InvalidPathException();
             }
         } else {
             // go to a given directory
@@ -79,7 +80,7 @@ public class IOManager {
     public void changeCurrentDirAbsolute(String absolutePath) throws IOException {
         File file = new File(absolutePath);
         if (!file.exists()) {
-            throw new IOException(ExceptionMessages.INVALID_PATH);
+            throw new InvalidPathException(ExceptionMessages.INVALID_PATH);
         }
 
         SessionData.currentPath = absolutePath;

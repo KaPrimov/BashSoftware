@@ -1,6 +1,7 @@
 package com.KaPrim.models;
 
-import com.KaPrim.staticData.ExceptionMessages;
+import com.KaPrim.exceptions.DuplicateEntryInStructureException;
+import com.KaPrim.exceptions.InvalidStringException;
 
 import java.util.LinkedHashMap;
 
@@ -16,19 +17,16 @@ public class Course {
         this.studentsByName = new LinkedHashMap<>();
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         if(name == null || name.equals("")) {
-            throw new IllegalArgumentException(ExceptionMessages.NULL_OR_EMPY_VALUE);
+            throw new InvalidStringException();
         }
         this.name = name;
     }
 
     public void enrollStudent(Student student) {
         if(this.studentsByName.containsKey(student.getUserName())) {
-            throw new IllegalArgumentException(String.format(
-                    ExceptionMessages.STUDENT_ALREADY_ENROLLED_IN_GIVEN_COURSE,
-                    student.getUserName(), this.name
-            ));
+            throw new DuplicateEntryInStructureException(student.getUserName(), this.name);
         }
         this.studentsByName.put(student.getUserName(), student);
     }

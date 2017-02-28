@@ -1,5 +1,7 @@
 package com.KaPrim.models;
 
+import com.KaPrim.exceptions.DuplicateEntryInStructureException;
+import com.KaPrim.exceptions.InvalidStringException;
 import com.KaPrim.staticData.ExceptionMessages;
 
 import java.util.Arrays;
@@ -24,7 +26,7 @@ public class Student {
 
     public void setUserName(String userName) {
         if(userName == null || userName.equals("")) {
-            throw new IllegalArgumentException(ExceptionMessages.NULL_OR_EMPY_VALUE);
+            throw new InvalidStringException();
         }
         this.userName = userName;
     }
@@ -38,11 +40,8 @@ public class Student {
     }
 
     public void enrollInCourse(Course course) {
-        if(this.enrolledCourses.containsKey(course)) {
-            throw new IllegalArgumentException(String.format(
-                    ExceptionMessages.STUDENT_ALREADY_ENROLLED_IN_GIVEN_COURSE,
-                    this.getUserName(), course.getName()
-            ));
+        if(this.enrolledCourses.containsKey(course.getName())) {
+           throw new DuplicateEntryInStructureException(this.getUserName(), course.getName());
         }
 
         this.enrolledCourses.put(course.getName(), course);
