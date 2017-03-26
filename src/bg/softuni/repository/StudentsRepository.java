@@ -1,22 +1,22 @@
 package bg.softuni.repository;
 
+import bg.softuni.dataStructures.SimpleSortedList;
 import bg.softuni.io.OutputWriter;
 import bg.softuni.models.Course;
+import bg.softuni.models.CourseImpl;
 import bg.softuni.models.Student;
+import bg.softuni.models.StudentImpl;
 import bg.softuni.staticData.ExceptionMessages;
 import bg.softuni.staticData.SessionData;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StudentsRepository {
+public class StudentsRepository implements Requester{
 
     private LinkedHashMap<String, Course> courses;
     private LinkedHashMap<String, Student> students;
@@ -77,22 +77,22 @@ public class StudentsRepository {
                                 ExceptionMessages.INVALID_SCORE);
                         continue;
                     }
-                    if (scores.length > Course.NUMBER_OF_TASKS_ON_EXAM) {
+                    if (scores.length > CourseImpl.NUMBER_OF_TASKS_ON_EXAM) {
                         OutputWriter.displayException(
                                 ExceptionMessages.INVALID_NUMBER_OF_SCORES);
                         continue;
                     }
                     if (!this.students.containsKey(studentName)) {
-                        this.students.put(studentName, new Student(studentName));
+                        this.students.put(studentName, new StudentImpl(studentName));
                     }
                     if (!this.courses.containsKey(courseName)) {
-                        this.courses.put(courseName, new Course(courseName));
+                        this.courses.put(courseName, new CourseImpl(courseName));
                     }
-                    Course course = this.courses.get(courseName);
-                    Student student = this.students.get(studentName);
-                    student.enrollInCourse(course);
-                    student.setMarkOnCourse(courseName, scores);
-                    course.enrollStudent(student);
+                    Course courseImpl = this.courses.get(courseName);
+                    Student studentImpl = this.students.get(studentName);
+                    studentImpl.enrollInCourse(courseImpl);
+                    studentImpl.setMarkOnCourse(courseName, scores);
+                    courseImpl.enrollStudent(studentImpl);
                 } catch (NumberFormatException nfe) {
                     OutputWriter.displayException(nfe.getMessage() + " at line: " + lineIndex);
                 }
@@ -121,6 +121,27 @@ public class StudentsRepository {
                 this.courses.get(courseName).getStudentsByName().entrySet()) {
             this.getStudentMarkInCourse(courseName, student.getKey());
         }
+    }
+
+    @Override
+    public SimpleSortedList<Course> getAllCoursesSorted(Comparator<Course> cmp) {
+
+        SimpleSortedList<Course> coursesSortedList =
+                new SimpleSortedList<>(Course.class, cmp);
+        coursesSortedList.addAll(this.courses.values());
+
+
+        return coursesSortedList;
+    }
+
+    @Override
+    public SimpleSortedList<Student> getAllStudentsSorted(Comparator<Student> cmp) {
+
+        SimpleSortedList<Student> studentsSortedList =
+                new SimpleSortedList<>(Student.class, cmp);
+        studentsSortedList.addAll(this.students.values());
+
+        return studentsSortedList;
     }
 
     private boolean isQueryForCoursePossible(String courseName) {
