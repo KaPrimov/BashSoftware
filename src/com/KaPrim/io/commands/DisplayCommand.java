@@ -1,21 +1,23 @@
 package com.KaPrim.io.commands;
 
+import com.KaPrim.annotations.Alias;
+import com.KaPrim.annotations.Inject;
 import com.KaPrim.dataStructures.SimpleSortedList;
 import com.KaPrim.exceptions.InvalidInputException;
-import com.KaPrim.io.IOManager;
 import com.KaPrim.io.OutputWriter;
-import com.KaPrim.judge.Tester;
 import com.KaPrim.models.Course;
 import com.KaPrim.models.Student;
-import com.KaPrim.network.DownloadManager;
 import com.KaPrim.repository.StudentsRepository;
 
 import java.util.Comparator;
-
+@Alias("display")
 public class DisplayCommand extends Command {
 
-    public DisplayCommand(String input, String[] data, Tester tester, StudentsRepository repository, DownloadManager downloadManager, IOManager ioManager) {
-        super(input, data, tester, repository, downloadManager, ioManager);
+    @Inject
+    private StudentsRepository repository;
+
+    public DisplayCommand(String input, String[] data) {
+        super(input, data);
     }
 
     @Override
@@ -30,13 +32,13 @@ public class DisplayCommand extends Command {
 
         if(entityDisplay.equalsIgnoreCase("students")) {
             Comparator<Student> studentComparator = this.createStudentComparator(sortType);
-            SimpleSortedList<Student> list = this.getRepository().getAllStudentsSorted(studentComparator);
+            SimpleSortedList<Student> list = this.repository.getAllStudentsSorted(studentComparator);
             OutputWriter.writeMessageOnNewLine(
                     list.joinWith(System.lineSeparator())
             );
         } else if (entityDisplay.equalsIgnoreCase("courses")) {
             Comparator<Course> courseComparator = this.createCourseComparator(sortType);
-            SimpleSortedList<Course> list = this.getRepository().getAllCoursesSorted(courseComparator);
+            SimpleSortedList<Course> list = this.repository.getAllCoursesSorted(courseComparator);
             OutputWriter.writeMessageOnNewLine(
                     list.joinWith(System.lineSeparator())
             );

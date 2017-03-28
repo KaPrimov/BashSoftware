@@ -1,20 +1,18 @@
 package com.KaPrim.io.commands;
 
+import com.KaPrim.annotations.Alias;
+import com.KaPrim.annotations.Inject;
 import com.KaPrim.exceptions.InvalidInputException;
-import com.KaPrim.io.IOManager;
-import com.KaPrim.judge.Tester;
-import com.KaPrim.network.DownloadManager;
 import com.KaPrim.repository.StudentsRepository;
 
+@Alias("show")
 public class ShowCourseCommand extends Command {
 
-    public ShowCourseCommand(String input,
-                             String[] data,
-                             Tester tester,
-                             StudentsRepository repository,
-                             DownloadManager downloadManager,
-                             IOManager ioManager) {
-        super(input, data, tester, repository, downloadManager, ioManager);
+    @Inject
+    private StudentsRepository repository;
+
+    public ShowCourseCommand(String input, String[] data) {
+        super(input, data);
     }
 
     @Override
@@ -26,13 +24,13 @@ public class ShowCourseCommand extends Command {
 
         if (data.length == 2) {
             String courseName = data[1];
-            this.getRepository().getStudentsByCourse(courseName);
+            this.repository.getStudentsByCourse(courseName);
             return;
         }
 
         String courseName = data[1];
         String userName = data[2];
-        this.getRepository().getStudentMarkInCourse(courseName, userName);
+        this.repository.getStudentMarkInCourse(courseName, userName);
 
     }
 }

@@ -1,24 +1,17 @@
 package com.KaPrim.io.commands;
 
+import com.KaPrim.annotations.Alias;
 import com.KaPrim.exceptions.InvalidInputException;
-import com.KaPrim.io.IOManager;
-import com.KaPrim.judge.Tester;
-import com.KaPrim.network.DownloadManager;
-import com.KaPrim.repository.StudentsRepository;
 import com.KaPrim.staticData.SessionData;
 
 import java.awt.*;
 import java.io.File;
 
+@Alias("open")
 public class OpenFileCommand extends Command {
 
-    public OpenFileCommand(String input,
-                           String[] data,
-                           Tester tester,
-                           StudentsRepository repository,
-                           DownloadManager downloadManager,
-                           IOManager ioManager) {
-        super(input, data, tester, repository, downloadManager, ioManager);
+    public OpenFileCommand(String input, String[] data) {
+        super(input, data);
     }
 
     @Override

@@ -1,22 +1,20 @@
 package com.KaPrim.io.commands;
 
+import com.KaPrim.annotations.Alias;
+import com.KaPrim.annotations.Inject;
 import com.KaPrim.exceptions.InvalidInputException;
-import com.KaPrim.io.IOManager;
 import com.KaPrim.io.OutputWriter;
-import com.KaPrim.judge.Tester;
-import com.KaPrim.network.DownloadManager;
 import com.KaPrim.repository.StudentsRepository;
 import com.KaPrim.staticData.ExceptionMessages;
 
+@Alias("order")
 public class PrintOrderedStudentsCommand extends Command {
 
-    public PrintOrderedStudentsCommand(String input,
-                                       String[] data,
-                                       Tester tester,
-                                       StudentsRepository repository,
-                                       DownloadManager downloadManager,
-                                       IOManager ioManager) {
-        super(input, data, tester, repository, downloadManager, ioManager);
+    @Inject
+    private StudentsRepository repository;
+
+    public PrintOrderedStudentsCommand(String input, String[] data) {
+        super(input, data);
     }
 
     @Override
@@ -43,13 +41,13 @@ public class PrintOrderedStudentsCommand extends Command {
         }
 
         if (takeQuantity.equals("all")) {
-            this.getRepository().orderAndTake(courseName, orderType);
+            this.repository.orderAndTake(courseName, orderType);
             return;
         }
 
         try {
             int studentsToTake = Integer.parseInt(takeQuantity);
-            this.getRepository().orderAndTake(courseName, orderType, studentsToTake);
+            this.repository.orderAndTake(courseName, orderType, studentsToTake);
         } catch (NumberFormatException nfe) {
             OutputWriter.displayException(ExceptionMessages.IVALID_TAKE_QUANTITY_PARAMETER);
         }

@@ -1,20 +1,18 @@
 package com.KaPrim.io.commands;
 
+import com.KaPrim.annotations.Alias;
+import com.KaPrim.annotations.Inject;
 import com.KaPrim.exceptions.InvalidInputException;
-import com.KaPrim.io.IOManager;
-import com.KaPrim.judge.Tester;
 import com.KaPrim.network.DownloadManager;
-import com.KaPrim.repository.StudentsRepository;
 
+@Alias("download")
 public class DownloadFileCommand extends Command {
 
-    public DownloadFileCommand(String input,
-                               String[] data,
-                               Tester tester,
-                               StudentsRepository repository,
-                               DownloadManager downloadManager,
-                               IOManager ioManager) {
-        super(input, data, tester, repository, downloadManager, ioManager);
+    @Inject
+    private DownloadManager downloadManager;
+
+    public DownloadFileCommand(String input, String[] data) {
+        super(input, data);
     }
 
     @Override
@@ -25,6 +23,6 @@ public class DownloadFileCommand extends Command {
         }
 
         String fileUrl = data[1];
-        this.getDownloadManager().download(fileUrl);
+        this.downloadManager.download(fileUrl);
     }
 }

@@ -1,21 +1,19 @@
 package com.KaPrim.io.commands;
 
+import com.KaPrim.annotations.Alias;
+import com.KaPrim.annotations.Inject;
 import com.KaPrim.exceptions.InvalidInputException;
-import com.KaPrim.io.IOManager;
 import com.KaPrim.io.OutputWriter;
-import com.KaPrim.judge.Tester;
-import com.KaPrim.network.DownloadManager;
 import com.KaPrim.repository.StudentsRepository;
 
+@Alias("dropdb")
 public class DropDatabaseCommand extends Command {
 
-    public DropDatabaseCommand(String input,
-                               String[] data,
-                               Tester tester,
-                               StudentsRepository repository,
-                               DownloadManager downloadManager,
-                               IOManager ioManager) {
-        super(input, data, tester, repository, downloadManager, ioManager);
+    @Inject
+    private StudentsRepository studentsRepository;
+
+    public DropDatabaseCommand(String input, String[] data) {
+        super(input, data);
     }
 
     @Override
@@ -25,7 +23,7 @@ public class DropDatabaseCommand extends Command {
             throw new InvalidInputException(this.getInput());
         }
 
-        this.getRepository().unloadData();
+        this.studentsRepository.unloadData();
         OutputWriter.writeMessageOnNewLine("Database dropped!");
     }
 }

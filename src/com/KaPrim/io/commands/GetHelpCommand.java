@@ -1,21 +1,14 @@
 package com.KaPrim.io.commands;
 
+import com.KaPrim.annotations.Alias;
 import com.KaPrim.exceptions.InvalidInputException;
-import com.KaPrim.io.IOManager;
 import com.KaPrim.io.OutputWriter;
-import com.KaPrim.judge.Tester;
-import com.KaPrim.network.DownloadManager;
-import com.KaPrim.repository.StudentsRepository;
 
+@Alias("help")
 public class GetHelpCommand extends Command {
 
-    public GetHelpCommand(String input,
-                          String[] data,
-                          Tester tester,
-                          StudentsRepository repository,
-                          DownloadManager downloadManager,
-                          IOManager ioManager) {
-        super(input, data, tester, repository, downloadManager, ioManager);
+    public GetHelpCommand(String input, String[] data) {
+        super(input, data);
     }
 
     @Override
